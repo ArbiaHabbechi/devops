@@ -1,0 +1,15 @@
+package com.beeauto.repositories;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import com.beeauto.Entities.Offre;
+
+public interface OffreRepository extends CrudRepository <Offre, Long>{
+
+    @Query("SELECT o FROM Offre o " +
+            "WHERE o.labelle = ?1")
+    Offre findByLabelle(String labelle);
+
+}
+
+

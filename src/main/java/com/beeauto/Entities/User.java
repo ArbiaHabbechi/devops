@@ -1,0 +1,120 @@
+package com.beeauto.Entities;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+
+@Entity
+public class User {
+
+
+	@Id
+	@SequenceGenerator(
+			name = "user_sequence",
+			sequenceName = "user_sequence",
+			allocationSize = 1
+	)
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "user_sequence"
+	)
+	private long idUser;
+	
+	@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "nom")
+	private String nom;
+	
+	@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "prenom")
+	private String prenom;
+	
+	@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "motdepasse")
+	private String password;
+	
+	@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "email")
+	private String email;
+	
+	//@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "tel")
+	//@Length(min= 8, message = "Taper 8 chiffres")
+	private int tel;
+
+	@NotBlank(message="Ce champ est obligatoire")
+	@Column(name = "active")
+	private String active;
+
+	public long getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(long idUser) {
+		this.idUser = idUser;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getPrenom() {
+		return prenom;
+	}
+
+	public void setPrenom(String prenom) {
+		this.prenom = prenom;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public int getTel() {
+		return tel;
+	}
+
+	public void setTel(int tel) {
+		this.tel = tel;
+	}
+
+
+	public String getActive() {
+		return active;
+	}
+
+	public void setActive(String active) {
+		this.active = active;
+	}
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "roleId", nullable = false)
+	@OnDelete(action = OnDeleteAction.CASCADE)
+private Role role;
+	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole (Role role) {
+		this.role=role;
+	}
+	
+}
